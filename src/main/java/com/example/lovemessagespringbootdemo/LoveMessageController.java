@@ -10,13 +10,19 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping
 public class LoveMessageController {
 
-    @Value("${love.name}")
+    @Value("${love.name:Lele}")
     private String loveName;
 
     @GetMapping
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("index");
+    public ModelAndView root() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("root");
         modelAndView.addObject("loveName", loveName);
         return modelAndView;
+    }
+
+    @GetMapping("/index")
+    public ModelAndView index() {
+        return root();
     }
 }
